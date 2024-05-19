@@ -42,7 +42,7 @@ console.log("Add Element Begining Of Array:", fruits);
 fruits.splice(1,2,);
 console.log("Removing Elements Starting Of Index 1:", fruits); 
 
-//Q10: Insert the elements "pinapple" and "pear" at index 2 of the fruits array using the method.
+//Q10: Insert the elements "pinapple" and "pear" at indtsc arraex 2 of the fruits array using the method.
 // Assuming fruits array in Q1 let fruits: string[]= ["apple","banana","mango","orange"];
 fruits.splice(2, 0, "pineapple", "pear");
 console.log("Inserting Element at Index2:", fruits); 
