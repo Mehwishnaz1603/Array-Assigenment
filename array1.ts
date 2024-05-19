@@ -1,57 +1,95 @@
 // Part1/;Basic Arrays_Product Inventory
 //Challenge:
-
-type Product = { name: string; price: number;
-                 inventory: { stock: number; colorOptions: string[], };
+type Product = {
+    name: string;
+    price: number;
+    inventory: {
+        stock: number;
+        colorOptions: string[];
+    };
 };
-let products: Product[] = [     // Create array of product in objects
-   
-    {   name: "T-shirt", price: 800, 
-        inventory: { stock: 80, colorOptions: ["red", "blue", "green","black","yellow"], }
-    },
-    {   name: "Jeans", price: 1200,
-        inventory: {stock: 60, colorOptions: ["black", "blue", "grey","offwhite"], }
-    },
-    {   name: "Shoes", price: 2000, 
-        inventory: { stock: 75, colorOptions: ["white", "black", "red","yellow","blue"],}
-    }, ];
 
-function changeColor(product: Product, newColor: string): void { //Implement a function that takes  product object and new color as input
-    switch (newColor) {                                            // Implementation and Adjust price based on the new color 
-        case "red": 
-            product.price *= 1.1;              ;                  // Increase 10% price
-            break;
-        case "blue":
-            product.price *= 0.95;                                // Decrease  5% price
-            break;
+// Create an array of product objects
+const products: Product[] = [
+    {
+        name: "T-shirt",
+        price: 20,
+        inventory: {
+            stock: 100,
+            colorOptions: ["red", "blue", "green"]
+        }
+    },
+    {
+        name: "Sneakers",
+        price: 50,
+        inventory: {
+            stock: 50,
+            colorOptions: ["black", "white"]
+        }
+    },
+    {
+        name: "Backpack",
+        price: 30,
+        inventory: {
+            stock: 80,
+            colorOptions: ["gray", "navy"]
+        }
     }
-    product.inventory.colorOptions.push(newColor);                // Update the color property of the product
+];
+
+// Function to change color and adjust price
+function changeColor(product: Product, newColor: string) {
+    const colorIndex = product.inventory.colorOptions.indexOf(newColor);
+    if (colorIndex !== -1) {
+        // Implementing logic to adjust price based on the new color
+        switch (newColor) {
+            case "red":
+                product.price *= 1.1; // Increase by 10%
+                break;
+            case "blue":
+                product.price *= 0.95; // Decrease by 5%
+                break;
+            // Add more cases for other colors if needed
+            default:
+                break;
+        }
+        product.inventory.colorOptions.splice(colorIndex, 1);
+        product.inventory.colorOptions.unshift(newColor);
+    } else {
+        console.log(`Color '${newColor}' is not available for ${product.name}.`);
+    }
 }
-products.forEach(product => {                                      // Display product details
-    console.log(`Name: ${product.name}`);
-    console.log(`Price: ${product.price}`);
+
+// Display product details
+products.forEach(product => {
+    console.log(`Product Name: ${product.name}`);
+    console.log(`Price: $${product.price.toFixed(2)}`);
     console.log(`Stock: ${product.inventory.stock}`);
-    console.log(`Available Colors: ${product.inventory.colorOptions.join(', ')}`);
-    console.log("<<==-----<<==------==>>------==>>");
+    console.log(`Available Colors: ${product.inventory.colorOptions.join(", ")}`);
+    console.log("------------------------");
 });
 
-console.log("Changing color of T-shirt to red:");    // Example usage of changeColor function
-changeColor(products[0], "red");
-console.log("New Price of T-shirt to blue:", products[0].price);
-console.log("Updated Available Colors:", products[0].inventory.colorOptions);
-changeColor(products[1], "blue");
-console.log("New Price of T-shirt:", products[1].price);
-console.log("Updated Available Colors:", products[1].inventory.colorOptions);
-
+// Testing changeColor function
+console.log("\nTesting changeColor function:");
+changeColor(products[0], "red"); // Change color of the first product to red
+console.log(products[0]); // Display updated product details
 // Part2: Multi Dimensional Arrays And Tuples_Student Grades
 // Challenge:
 type Student = {
-    name:string, grade:number[],
+    name:string, grades:number[],
 };
 let students: Student[] = [                   // Create array of product in objects
    
-    { name: "Mehwish", grade: [10,20,30,40],},
-    { name: "Ahmed" , grade: [10,20,30,40],},
-    { name: "Alina"  , grade: [10,20,30,40],},];
+    { name: "Mehwish", grades: [10,20,30,40],},
+    { name: "Ahmed" , grades: [10,20,30,40],},
+    { name: "Alina"  , grades: [10,20,30,40],},];
     
-function calculateAverageGrade(grade: number): void {   //Implement a function that takes grade as input
+function calculateAverageGrade(grades: number[]): number{
+    const sum = grades.reduce((acc, grade) => acc + grade, 0);
+    return sum / grades.length;
+}  
+students.forEach(student => {
+    const averageGrade = calculateAverageGrade(student.grades);
+    console.log(`${student.name}'s average grade: ${averageGrade}`);
+});
+
